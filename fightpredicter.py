@@ -23,36 +23,26 @@ for event_link in event_details:
         #print(isolated_link)
             card_info = requests.get('http://ufcstats.com/event-details/{}'.format(isolated_link))
        # for fight in card_info:
-            all_fights = BeautifulSoup(card_info.text, 'html')
-            fights = all_fights.find_all('a', class_='b-link')
-        
-            all_fights = str(fights).split("\n")
-            print(all_fights)
-        
+            all_links = BeautifulSoup(card_info.text, 'html')
+            all_fighters = all_links.find_all('a', class_='b-link')
+            #print(all_fighters)
 
-            j +=1
-        i = 0
-        all_links = []
-        while i < len(all_fights):
-            all_fights[i] = all_fights[i].replace('View Matchup  </a>','')
-            all_fights[i] = all_fights[i].split("/")[-1].replace('">','')
-            all_links.append(all_fights[i])
-            i+=2
+
+            all_fighters = str(all_fighters).replace("</a>","").split(",")
+            print(all_fighters)
+
+            for line in all_fighters:
+                line = line.split("/")[-1].replace('">',"").strip()
+
+                print(line[0:16])
+
+            #all_fights = all_links.find_all('a', class_='b-flag')
+            #print(all_fights)
+
 
             
-            
-            
 
-        slow_pointer = 0
-        fast_pointer = 2
+            j +=  1
 
-        while fast_pointer < len(all_links):
-            #print("fight" ,all_links[fast_pointer])
-            #print("fighter 1" , all_links[slow_pointer])
-            slow_pointer += 1
-            #print("fighter 2" , all_links[slow_pointer])
 
-            fast_pointer += 3
-            slow_pointer += 2
 
- 
